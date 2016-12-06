@@ -1,0 +1,44 @@
+extends layout
+
+block content
+    h1=title
+    p
+        a(href="../") Home
+    p=removed
+    table(border="1")
+        thead   
+            tr
+                th firstName
+                th lastName
+                th department
+                th startDate
+                th jobTitle
+                th salary
+        tbody
+        - each stuff in results
+            tr
+                td 
+                    = stuff.firstName
+                td 
+                    = stuff.lastName
+                td 
+                    = stuff.department
+                td 
+                    +formatDate(stuff.startDate) 
+                td 
+                    = stuff.jobTitle
+                td 
+                    = stuff.salary
+                td
+                    a(href="../update/#{stuff._id}") Update
+                td
+                    a(href="../view/#{stuff._id}") Delete
+
+mixin formatDate(dateString)
+  -var date = new Date(dateString);
+  -var d = date.getDate();
+  -var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+  -var m = monthNames[date.getMonth()];
+  -var y = date.getFullYear();
+  -var output = m + ' ' + d + ' ' + y;
+  =output
